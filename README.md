@@ -8,7 +8,7 @@ This repository contains code examples, practice scripts, and hands-on exercises
 
 | File | Description | Key Topics / Libraries |
 | :--- | :--- | :--- |
-| [`chat_bot.py`](file:///c:/Users/kalan/Documents/Projects/AI-ML-Class/chat_bot.py) | Interactive CLI context-bounded chatbot ("Aria") powered by LangChain and Groq. Answers questions strictly from provided reference material (*The Red Pyramid*). | LangChain, System Prompts, Context Grounding |
+| [`chat_bot.py`](file:///c:/Users/kalan/Documents/Projects/AI-ML-Class/chat_bot.py) | Interactive CLI context-bounded chatbot ("Aria") powered by LangChain and Groq. Answers questions strictly from provided reference material (*The Chronicles of Narnia*). | LangChain, System Prompts, Context Grounding |
 | [`llm_connect.py`](file:///c:/Users/kalan/Documents/Projects/AI-ML-Class/llm_connect.py) | Connects to different LLM providers using LangChain's unified `init_chat_model` interface. | LangChain, Groq, OpenRouter |
 | [`test.py`](file:///c:/Users/kalan/Documents/Projects/AI-ML-Class/test.py) | Directly queries the OpenRouter REST API using Python's `requests` library. | REST APIs, HTTP Requests, JSON Parsing |
 | [`test2.py`](file:///c:/Users/kalan/Documents/Projects/AI-ML-Class/test2.py) | Interacts directly with the official Groq client SDK with real-time response streaming. | Groq SDK, Streaming Responses |
@@ -37,38 +37,53 @@ python -m venv venv
 Install the necessary libraries for the scripts:
 
 ```bash
-pip install langchain langchain-core groq requests
+pip install langchain langchain-core groq requests python-dotenv
 ```
 
 ---
 
-## 🔑 API Keys Configuration
+## 🔑 Environment Configuration (`.env`)
 
-Several scripts require API keys for LLM providers:
-- **Groq API Key**: Get one from [Groq Console](https://console.groq.com/).
-- **OpenRouter API Key**: Get one from [OpenRouter](https://openrouter.ai/).
+This project uses [`python-dotenv`](https://pypi.org/project/python-dotenv/) to manage environment variables securely. Scripts such as [`chat_bot.py`](file:///c:/Users/kalan/Documents/Projects/AI-ML-Class/chat_bot.py) load credentials automatically using `load_dotenv(override=True)`.
 
-> [!WARNING]
-> Never commit real API keys to version control. Keep keys in a local file (such as `api_keys.txt`, which is already included in `.gitignore`) or use environment variables.
-
-To set your Groq API key via environment variable:
+### 1. Create a `.env` File
+Create a `.env` file in the project root by copying the template [`.env.example`](file:///c:/Users/kalan/Documents/Projects/AI-ML-Class/.env.example):
 
 ```powershell
-$env:GROQ_API_KEY="your_groq_api_key_here"
+# Windows (PowerShell)
+Copy-Item .env.example .env
+
+# Bash / macOS / Linux
+cp .env.example .env
 ```
 
-In the scripts, replace placeholders like `"ADD_YOUR_API_KEY"` with your actual key or load them via `os.environ`.
+### 2. Add Your API Keys
+Open `.env` and add your credentials:
+
+```env
+GROQ_API_KEY=your_groq_api_key_here
+```
+
+| Key | Description | Where to Get |
+| :--- | :--- | :--- |
+| `GROQ_API_KEY` | Required for Groq-powered scripts ([`chat_bot.py`](file:///c:/Users/kalan/Documents/Projects/AI-ML-Class/chat_bot.py), [`test2.py`](file:///c:/Users/kalan/Documents/Projects/AI-ML-Class/test2.py)) | [Groq Console](https://console.groq.com/keys) |
+| `OPENROUTER_API_KEY` | Optional for OpenRouter scripts ([`llm_connect.py`](file:///c:/Users/kalan/Documents/Projects/AI-ML-Class/llm_connect.py), [`test.py`](file:///c:/Users/kalan/Documents/Projects/AI-ML-Class/test.py)) | [OpenRouter](https://openrouter.ai/keys) |
+
+> [!WARNING]
+> Never commit your `.env` file to version control. The `.env` file is already listed in [`.gitignore`](file:///c:/Users/kalan/Documents/Projects/AI-ML-Class/.gitignore) to protect your secrets.
 
 ---
 
 ## 🚀 How to Run the Scripts
 
 ### 1. Context-Bounded Chatbot (`chat_bot.py`)
-Runs an interactive conversation in the terminal with "Aria", a bot restricted to answering questions based on *The Red Pyramid* context:
+Runs an interactive conversation in the terminal with "Aria", a bot restricted to answering questions based on *The Chronicles of Narnia* context using credentials loaded from `.env`:
 
 ```bash
 python chat_bot.py
 ```
+- Ensure `GROQ_API_KEY` is present in your `.env` file.
+- Enter your name when prompted.
 - Type your question and press `Enter`.
 - Type `q` to exit the loop.
 
