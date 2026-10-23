@@ -81,10 +81,10 @@ Would you like to explore how Greta Gerwig’s upcoming 2027 Netflix adaptation 
 
 """
 
-
+max_tokens = 1024
 def chat(message,user_name):
     
-    llm = init_chat_model("openai/gpt-oss-120b", model_provider="groq", temperature=0, max_tokens= 1024)
+    llm = init_chat_model("openai/gpt-oss-120b", model_provider="groq", temperature=0.8, max_tokens= max_tokens)
     
     book_desc = f"""
 
@@ -100,7 +100,8 @@ def chat(message,user_name):
         Give your output in narnia slang. use context and how they speak in thir world. use any emoji if need. User's name is {user_name}
         use that name when you need
 
-        Do not answer anything not related to given context. if asked give an answer in a creative way telling NO.
+        Do not answer anything not related to given context. if asked give an answer in a creative way telling NO. Your allowd max tokens 
+        to generate the output is {max_tokens}, try to be in that range.
 
         give the answer only. do not include your thinking. 
 
@@ -120,25 +121,25 @@ def chat(message,user_name):
 
 
 
-# give me a frid rice recipe 
-user_name = input("Enter your name : ")
-if user_name:
-    for i in range(10):
-        user_message = input("Enter your message : ")
+# # give me a frid rice recipe 
+# user_name = input("Enter your name : ")
+# if user_name:
+#     for i in range(10):
+#         user_message = input("Enter your message : ")
 
-        if user_message == "q":
-            break
+#         if user_message == "q":
+#             break
 
-        if user_message:
+#         if user_message:
 
-            response = chat(user_message,user_name)
-            print(response)
+#             response = chat(user_message,user_name)
+#             print(response)
 
-        else:
-            print("please enter a valid message")
+#         else:
+#             print("please enter a valid message")
 
-else:
-    print("enter a valid user name")
+# else:
+#     print("enter a valid user name")
 
 
 
